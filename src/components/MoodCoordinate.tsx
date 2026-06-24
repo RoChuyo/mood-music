@@ -1,6 +1,6 @@
 'use client'
 import { useRef, useState, useCallback, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useMoodStore, moodThemes, Mood } from '@/store/useMoodStore'
 
 interface TrailPoint {
@@ -156,7 +156,21 @@ export default function MoodCoordinate() {
             marginTop: -16,
           }}
         >
-          <img src="/ui/cursor.svg" alt="" className="w-full h-full drop-shadow-lg" />
+          {/* White circle holding the current mood's icon (matches Figma 坐标轴光标) */}
+          <div className="w-full h-full rounded-full bg-white flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={currentMood}
+                src={theme.iconSrc}
+                alt=""
+                className="w-[22px] h-[22px]"
+                initial={{ scale: 0.4, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.4, opacity: 0 }}
+                transition={{ duration: 0.25 }}
+              />
+            </AnimatePresence>
+          </div>
         </motion.div>
 
         {/* Mood transition animation */}

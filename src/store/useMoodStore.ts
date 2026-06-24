@@ -96,6 +96,7 @@ export interface MoodRecord {
   title?: string
   content?: string
   images?: string[]
+  cover?: string
 }
 
 interface MoodState {
