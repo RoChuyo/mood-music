@@ -11,8 +11,8 @@ type ViewMode = 'cards' | 'list' | 'detail'
 
 const moodBgColors: Record<Mood, string> = { happy: '#E9F8D3', sad: '#D3E8F8', angry: '#F8D3DB', relaxed: '#F8F0D3' }
 const moodLabelBarColors: Record<Mood, string> = { happy: 'rgba(75,109,0,0.5)', sad: 'rgba(0,65,109,0.5)', angry: 'rgba(109,0,30,0.5)', relaxed: 'rgba(109,96,0,0.5)' }
-// Frosted-glass tint per mood (Figma effective alpha ≈ 0.45)
-const moodGlass: Record<Mood, string> = { happy: 'rgba(80,134,0,0.45)', sad: 'rgba(0,85,134,0.45)', angry: 'rgba(134,0,40,0.45)', relaxed: 'rgba(134,120,0,0.45)' }
+// Frosted-glass tint per mood — lighter/more transparent while keeping color
+const moodGlass: Record<Mood, string> = { happy: 'rgba(80,134,0,0.25)', sad: 'rgba(0,85,134,0.25)', angry: 'rgba(134,0,40,0.25)', relaxed: 'rgba(134,120,0,0.25)' }
 // Cursor lands in the quadrant matching the mood (top-left of the 31px circle, card-relative)
 const cursorPos: Record<Mood, { left: number; top: number }> = {
   happy: { left: 250, top: 100 },   // top-right
@@ -172,7 +172,7 @@ export default function RecordsPage() {
           {/* ===== FROSTED GLASS overlay — full card, blur + mood tint ===== */}
           <motion.div className="absolute inset-0"
             animate={{ backgroundColor: moodGlass[currentMood] }} transition={{ duration: 0.8 }}
-            style={{ backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }} />
+            style={{ backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(3px)' }} />
           {/* Extra darker glass over the left photo half (Figma stacks photo-card glass + overlay) */}
           <motion.div className="absolute left-0 top-0 bottom-0" style={{ width: 184 }}
             animate={{ backgroundColor: moodGlass[currentMood] }} transition={{ duration: 0.8 }} />
