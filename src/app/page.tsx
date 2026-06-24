@@ -20,98 +20,118 @@ export default function HomePage() {
 
   return (
     <motion.div
-      className="min-h-screen pb-36"
+      className="min-h-screen pb-[180px]"
       animate={{ background: theme.bgGradient }}
       transition={{ duration: 0.8 }}
     >
-      <div className="px-4 pt-12">
-        <div className="flex items-center gap-3 mb-4">
-          <motion.div
-            className="flex-1 flex items-center gap-2 rounded-full px-4 py-2.5"
-            animate={{ backgroundColor: theme.cardBg }}
-            transition={{ duration: 0.8 }}
-          >
-            <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-            <span className="text-sm text-gray-400">搜索</span>
-          </motion.div>
-          <motion.div
-            className="h-9 w-9 rounded-full overflow-hidden flex items-center justify-center text-lg"
-            animate={{ backgroundColor: theme.primaryLight + '40' }}
-            transition={{ duration: 0.8 }}
-          >
-            😊
-          </motion.div>
+      <div className="px-[14px] pt-[46px]">
+        {/* Search bar */}
+        <div className="flex items-center gap-3 mb-4 px-[6px]">
+          <div className="flex-1 flex items-center gap-2">
+            <img src="/icons/search.svg" alt="" className="w-6 h-6" />
+            <motion.div
+              className="flex-1 h-[36px] rounded-[30px] flex items-center px-4"
+              animate={{ backgroundColor: `${theme.primaryLight}B3` }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-[17px] text-[rgba(60,60,67,0.6)]" style={{ fontFamily: "'PingFang SC', sans-serif" }}>搜索</span>
+            </motion.div>
+          </div>
+          <img src="/ui/avatar.png" alt="头像" className="w-7 h-7 rounded-full" />
         </div>
 
+        {/* Record mood header */}
         <motion.div
-          className="rounded-2xl p-4 mb-4"
-          animate={{ backgroundColor: theme.cardBg }}
+          className="rounded-t-[20px] px-[14px] py-[12px] flex items-center justify-between shadow-[0px_6px_18px_0px_rgba(58,88,14,0.16)]"
+          animate={{ backgroundColor: theme.primary }}
           transition={{ duration: 0.8 }}
         >
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <motion.div
-                className="h-8 w-8 rounded-full flex items-center justify-center"
-                animate={{ backgroundColor: theme.primary }}
-                transition={{ duration: 0.8 }}
-              >
-                <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
-              </motion.div>
-              <div>
-                <p className="text-sm font-semibold">记录此刻心情</p>
-                <p className="text-xs text-gray-500">2026.6.22 星期一</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={currentMood}
-                  className="text-sm font-medium flex items-center gap-1"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  style={{ color: theme.primary }}
-                >
-                  {theme.icon} {theme.label}（{coordX}, {coordY}）
-                </motion.span>
-              </AnimatePresence>
-              <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+          <div className="flex items-center gap-2">
+            <img src="/icons/record-pen.svg" alt="" className="w-10 h-10" />
+            <div>
+              <p className="text-[14px] font-semibold text-white text-right" style={{ fontFamily: "'PingFang SC', sans-serif" }}>记录此刻心情</p>
+              <p className="text-[10px] font-semibold text-white" style={{ fontFamily: "'PingFang HK', sans-serif" }}>2026.6.22 星期一</p>
             </div>
           </div>
+          <div className="flex items-center gap-1.5">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentMood}
+                className="flex items-center gap-1"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+              >
+                <img src={theme.iconSrc} alt="" className="w-[18px] h-[18px]" />
+                <span className="text-[14px] font-semibold text-white" style={{ fontFamily: "'PingFang SC', sans-serif" }}>
+                  {theme.label}（{coordX}, {coordY}）
+                </span>
+              </motion.div>
+            </AnimatePresence>
+            <img src="/icons/bell.svg" alt="" className="w-[17px] h-[17px]" />
+          </div>
+        </motion.div>
+
+        {/* Mood coordinate */}
+        <motion.div
+          className="rounded-b-[20px] backdrop-blur-[14px] border border-solid shadow-[0px_8px_22px_0px_rgba(58,88,14,0.12)] overflow-hidden mb-4"
+          animate={{
+            backgroundColor: `${theme.cardBg}9E`,
+            borderColor: `${theme.textPrimary}38`,
+          }}
+          transition={{ duration: 0.8 }}
+        >
           <MoodCoordinate />
         </motion.div>
 
-        <div className="flex items-center gap-4 mb-1">
+        {/* Playlist header */}
+        <div className="flex items-center gap-4 mb-1 px-[5px]">
           <button
             onClick={() => setListMode('recommend')}
-            className="text-lg transition-colors"
-            style={{ color: listMode === 'recommend' ? '#000' : '#999', fontWeight: listMode === 'recommend' ? 700 : 400 }}
+            className="text-[20px] transition-colors"
+            style={{
+              color: listMode === 'recommend' ? theme.textPrimary : `${theme.textPrimary}4D`,
+              fontWeight: 600,
+              fontFamily: "'PingFang SC', sans-serif",
+            }}
           >
             推荐歌单
           </button>
           <button
             onClick={() => setListMode('personal')}
-            className="text-lg transition-colors"
-            style={{ color: listMode === 'personal' ? '#000' : '#999', fontWeight: listMode === 'personal' ? 700 : 400 }}
+            className="text-[20px] transition-colors"
+            style={{
+              color: listMode === 'personal' ? theme.textPrimary : `${theme.textPrimary}4D`,
+              fontWeight: 600,
+              fontFamily: "'PingFang SC', sans-serif",
+            }}
           >
             个人歌单
           </button>
           <div className="flex-1" />
-          <motion.span className="text-xs" animate={{ color: theme.primary }} transition={{ duration: 0.8 }}>
+          <span className="text-[10px] text-right" style={{ color: 'rgba(0,0,0,0.3)', fontFamily: "'PingFang HK', sans-serif", fontWeight: 600 }}>
             随心情变化歌单
-          </motion.span>
+          </span>
         </div>
-        <p className="text-xs text-gray-400 mb-3">根据HRV数值和您的选择AI会自动为你推荐歌曲</p>
+        <p className="text-[10px] px-[5px] mb-3" style={{ color: 'rgba(0,0,0,0.5)', fontFamily: "'PingFang SC', sans-serif" }}>
+          根据HRV数值和您的选择AI会自动为你推荐歌曲
+        </p>
 
+        {/* AI message */}
         <motion.div
-          className="rounded-2xl p-4 mb-4 relative"
-          animate={{ backgroundColor: theme.cardBg }}
+          className="border border-solid relative mb-4"
+          animate={{
+            backgroundColor: `${theme.primaryLight}8C`,
+            borderColor: `${theme.textSecondary}2E`,
+          }}
           transition={{ duration: 0.8 }}
+          style={{ padding: '16px 14px' }}
         >
           <AnimatePresence mode="wait">
             <motion.p
               key={currentMood}
-              className="text-sm leading-relaxed"
+              className="text-[14px] font-medium leading-[1.5]"
+              style={{ color: '#58480E', fontFamily: "'Noto Sans SC', sans-serif" }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -119,51 +139,64 @@ export default function HomePage() {
               {aiMessages[currentMood]}
             </motion.p>
           </AnimatePresence>
-          <p className="text-xs text-right mt-2" style={{ color: theme.primary }}>AI依据您的情绪数据供暖心短句</p>
-          <button className="absolute top-3 right-3 text-gray-300">
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+          <p className="text-[8px] text-right mt-3" style={{ color: '#58480E', fontFamily: "'PingFang HK', sans-serif" }}>
+            AI会根据的情绪提供暖心短句
+          </p>
+          <button className="absolute top-2 right-2">
+            <img src="/icons/edit-note.svg" alt="" className="w-8 h-8 opacity-40" />
           </button>
         </motion.div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentMood}
-            className="space-y-1"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-          >
-            {songs.map((song, index) => (
-              <motion.div
-                key={song.id}
-                className="flex items-center gap-3 py-3 px-1 rounded-xl active:bg-black/5"
-                whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                  setCurrentSongIndex(index)
-                  setIsPlaying(true)
-                  router.push('/player')
-                }}
-              >
-                <motion.div
-                  className="h-14 w-14 rounded-lg flex-shrink-0 flex items-center justify-center text-white text-xs font-bold"
-                  animate={{ backgroundColor: theme.primaryLight + '60' }}
-                  transition={{ duration: 0.8 }}
-                >
-                  {song.title.slice(0, 2)}
-                </motion.div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-[15px] truncate">{song.title}</p>
-                  <p className="text-xs text-gray-500 truncate">{song.artist} · {song.album}</p>
-                  {listMode === 'personal' && <p className="text-xs text-gray-400">{song.date}</p>}
+        {/* Song list */}
+        <motion.div
+          className="rounded-[20px] overflow-hidden"
+          animate={{ backgroundColor: theme.cardBgAlpha }}
+          transition={{ duration: 0.8 }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`${currentMood}-${listMode}`}
+              className="px-[8px] py-[7px]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              {songs.map((song, index) => (
+                <div key={song.id}>
+                  <motion.div
+                    className="flex items-center gap-[23px] py-[3.5px] active:opacity-80"
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      setCurrentSongIndex(index)
+                      setIsPlaying(true)
+                      router.push('/player')
+                    }}
+                  >
+                    <div className="h-[67px] w-[67px] rounded-[10px] flex-shrink-0 overflow-hidden">
+                      <img src={song.cover} alt={song.title} className="h-full w-full object-cover" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[18px] font-medium truncate" style={{ color: theme.textPrimary, fontFamily: "'Noto Sans SC', sans-serif" }}>{song.title}</p>
+                      <p className="text-[14px] truncate" style={{ color: theme.textSecondary, fontFamily: "'Noto Sans SC', sans-serif" }}>
+                        {song.artist} · {song.album}
+                      </p>
+                      {listMode === 'personal' && (
+                        <p className="text-[14px]" style={{ color: `${theme.textPrimary}80`, fontFamily: "'Noto Sans SC', sans-serif" }}>{song.date}</p>
+                      )}
+                    </div>
+                    <button className="flex-shrink-0" onClick={(e) => e.stopPropagation()}>
+                      <img src="/icons/play-btn.svg" alt="play" className="w-7 h-7" />
+                    </button>
+                  </motion.div>
+                  {index < songs.length - 1 && (
+                    <div className="ml-[90px] h-px" style={{ backgroundColor: `${theme.textPrimary}10` }} />
+                  )}
                 </div>
-                <button className="h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0" onClick={(e) => e.stopPropagation()}>
-                  <svg className="h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-                </button>
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
       </div>
 
       <MiniPlayer />

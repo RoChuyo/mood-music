@@ -8,55 +8,70 @@ export interface MoodTheme {
   bg: string
   bgGradient: string
   cardBg: string
+  cardBgAlpha: string
   accent: string
+  textPrimary: string
+  textSecondary: string
   label: string
-  icon: string
+  iconSrc: string
   coordinate: { x: number; y: number }
 }
 
 export const moodThemes: Record<Mood, MoodTheme> = {
   happy: {
-    primary: '#6B8F3C',
-    primaryLight: '#8DB255',
-    bg: '#F0F5E8',
-    bgGradient: 'linear-gradient(180deg, #E8F0D8 0%, #F5F8EF 100%)',
-    cardBg: '#E8F0D8',
-    accent: '#6B8F3C',
+    primary: '#75B01C',
+    primaryLight: '#CAE5A3',
+    bg: '#F9FFF0',
+    bgGradient: 'linear-gradient(167deg, #F9FFF0 18%, #E9F8D3 36%, #FFFFFF 66%)',
+    cardBg: '#E9F8D3',
+    cardBgAlpha: 'rgba(233,248,211,0.5)',
+    accent: '#75B01C',
+    textPrimary: '#3A580E',
+    textSecondary: 'rgba(58,88,14,0.7)',
     label: '开心',
-    icon: '☀️',
+    iconSrc: '/mood/happy.svg',
     coordinate: { x: 1, y: -2 },
   },
   sad: {
-    primary: '#5B8EA6',
-    primaryLight: '#7BACC2',
-    bg: '#E8F0F5',
-    bgGradient: 'linear-gradient(180deg, #D8E8F0 0%, #EFF5F8 100%)',
-    cardBg: '#D8E8F0',
-    accent: '#5B8EA6',
+    primary: '#1C6FB0',
+    primaryLight: '#A3C5E5',
+    bg: '#F7FCFF',
+    bgGradient: 'linear-gradient(171deg, #F7FCFF 18%, #EBF7FF 45%, #FFFFFF 99%)',
+    cardBg: '#D3E8F8',
+    cardBgAlpha: 'rgba(211,232,248,0.5)',
+    accent: '#1C6FB0',
+    textPrimary: '#0E3A58',
+    textSecondary: 'rgba(14,58,88,0.7)',
     label: '悲伤',
-    icon: '🌊',
+    iconSrc: '/mood/sad.svg',
     coordinate: { x: -1, y: -2 },
   },
   angry: {
-    primary: '#C45B5B',
-    primaryLight: '#D88080',
-    bg: '#F5E8E8',
-    bgGradient: 'linear-gradient(180deg, #F0D8D8 0%, #F8EFEF 100%)',
-    cardBg: '#F0D8D8',
-    accent: '#C45B5B',
+    primary: '#B01C3A',
+    primaryLight: '#E5A3B3',
+    bg: '#FFF0F3',
+    bgGradient: 'linear-gradient(167deg, #FFF0F3 18%, #F8D3DB 36%, #FFFFFF 66%)',
+    cardBg: '#F8D3DB',
+    cardBgAlpha: 'rgba(248,211,219,0.5)',
+    accent: '#B01C3A',
+    textPrimary: '#580E1E',
+    textSecondary: 'rgba(88,14,30,0.7)',
     label: '愤怒',
-    icon: '🔥',
+    iconSrc: '/mood/angry.svg',
     coordinate: { x: -1, y: 2 },
   },
   relaxed: {
-    primary: '#B8963C',
-    primaryLight: '#D4B45F',
-    bg: '#F5F0E0',
-    bgGradient: 'linear-gradient(180deg, #F0E8D0 0%, #F8F5E8 100%)',
-    cardBg: '#F0E8D0',
-    accent: '#B8963C',
+    primary: '#B0961C',
+    primaryLight: '#E5D9A3',
+    bg: '#FFFBF0',
+    bgGradient: 'linear-gradient(167deg, #FFFBF0 18%, #F8F0D3 36%, #FFFFFF 66%)',
+    cardBg: '#F8F0D3',
+    cardBgAlpha: 'rgba(248,240,211,0.5)',
+    accent: '#B0961C',
+    textPrimary: '#58480E',
+    textSecondary: 'rgba(88,72,14,0.7)',
     label: '安逸',
-    icon: '🌙',
+    iconSrc: '/mood/relaxed.svg',
     coordinate: { x: 1, y: -2 },
   },
 }
@@ -70,7 +85,6 @@ export interface Song {
   date: string
   duration: string
   mood: Mood
-  lyrics?: string[]
 }
 
 export interface MoodRecord {

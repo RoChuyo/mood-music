@@ -1,0 +1,16 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 402 87.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+<foreignObject x="-54.3656" y="-53.8656" width="510.731" height="195.731"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(27.18px);clip-path:url(#bgblur_0_0_45_clip_path);height:100%;width:100%"></div></foreignObject><g id="Background" filter="url(#filter0_d_0_45)" data-figma-bg-blur-radius="54.3656">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.5H402V87.5H0V0.5Z" fill="var(--fill-0, #E9F8D3)"/>
+</g>
+<defs>
+<filter id="filter0_d_0_45" x="-54.3656" y="-53.8656" width="510.731" height="195.731" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-0.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_45"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_45" result="shape"/>
+</filter>
+<clipPath id="bgblur_0_0_45_clip_path" transform="translate(54.3656 53.8656)"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.5H402V87.5H0V0.5Z"/>
+</clipPath></defs>
+</svg>

@@ -1,0 +1,26 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="&#229;&#157;&#144;&#230;&#160;&#135;&#232;&#189;&#180;&#229;&#133;&#137;&#230;&#160;&#135;">
+<g id="Ellipse 51" filter="url(#filter0_f_0_99)">
+<circle cx="20" cy="20" r="16" fill="var(--fill-0, white)"/>
+<circle cx="20" cy="20" r="15.5" stroke="var(--stroke-0, #75B01C)"/>
+</g>
+<g id="&#229;&#188;&#128;&#229;&#191;&#131;icon">
+<path id="Vector" d="M20 26.5C23.5898 26.5 26.5 23.5898 26.5 20C26.5 16.4102 23.5898 13.5 20 13.5C16.4102 13.5 13.5 16.4102 13.5 20C13.5 23.5898 16.4102 26.5 20 26.5Z" stroke="var(--stroke-0, #3A580E)" stroke-width="2" stroke-linejoin="round"/>
+<path id="Vector_2" d="M20 8.75C20.5523 8.75 21 9.19772 21 9.75C21 10.3023 20.5523 10.75 20 10.75C19.4477 10.75 19 10.3023 19 9.75C19 9.19772 19.4477 8.75 20 8.75Z" fill="var(--fill-0, #3A580E)" stroke="var(--stroke-0, #3A580E)" stroke-width="0.5"/>
+<path id="Vector_3" d="M27.25 11.75C27.8023 11.75 28.25 12.1977 28.25 12.75C28.25 13.3023 27.8023 13.75 27.25 13.75C26.6977 13.75 26.25 13.3023 26.25 12.75C26.25 12.1977 26.6977 11.75 27.25 11.75Z" fill="var(--fill-0, #3A580E)" stroke="var(--stroke-0, #3A580E)" stroke-width="0.5"/>
+<path id="Vector_4" d="M30.25 19C30.8023 19 31.25 19.4477 31.25 20C31.25 20.5523 30.8023 21 30.25 21C29.6977 21 29.25 20.5523 29.25 20C29.25 19.4477 29.6977 19 30.25 19Z" fill="var(--fill-0, #3A580E)" stroke="var(--stroke-0, #3A580E)" stroke-width="0.5"/>
+<path id="Vector_5" d="M27.25 26.25C27.8023 26.25 28.25 26.6977 28.25 27.25C28.25 27.8023 27.8023 28.25 27.25 28.25C26.6977 28.25 26.25 27.8023 26.25 27.25C26.25 26.6977 26.6977 26.25 27.25 26.25Z" fill="var(--fill-0, #3A580E)" stroke="var(--stroke-0, #3A580E)" stroke-width="0.5"/>
+<path id="Vector_6" d="M20 29.25C20.5523 29.25 21 29.6977 21 30.25C21 30.8023 20.5523 31.25 20 31.25C19.4477 31.25 19 30.8023 19 30.25C19 29.6977 19.4477 29.25 20 29.25Z" fill="var(--fill-0, #3A580E)" stroke="var(--stroke-0, #3A580E)" stroke-width="0.5"/>
+<path id="Vector_7" d="M12.75 26.25C13.3023 26.25 13.75 26.6977 13.75 27.25C13.75 27.8023 13.3023 28.25 12.75 28.25C12.1977 28.25 11.75 27.8023 11.75 27.25C11.75 26.6977 12.1977 26.25 12.75 26.25Z" fill="var(--fill-0, #3A580E)" stroke="var(--stroke-0, #3A580E)" stroke-width="0.5"/>
+<path id="Vector_8" d="M9.75 19C10.3023 19 10.75 19.4477 10.75 20C10.75 20.5523 10.3023 21 9.75 21C9.19772 21 8.75 20.5523 8.75 20C8.75 19.4477 9.19772 19 9.75 19Z" fill="var(--fill-0, #3A580E)" stroke="var(--stroke-0, #3A580E)" stroke-width="0.5"/>
+<path id="Vector_9" d="M12.75 11.75C13.3023 11.75 13.75 12.1977 13.75 12.75C13.75 13.3023 13.3023 13.75 12.75 13.75C12.1977 13.75 11.75 13.3023 11.75 12.75C11.75 12.1977 12.1977 11.75 12.75 11.75Z" fill="var(--fill-0, #3A580E)" stroke="var(--stroke-0, #3A580E)" stroke-width="0.5"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_0_99" x="0" y="0" width="40" height="40" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2" result="effect1_foregroundBlur_0_99"/>
+</filter>
+</defs>
+</svg>
