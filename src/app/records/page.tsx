@@ -128,45 +128,36 @@ export default function RecordsPage() {
   }
 
   const recentRecords = moodRecords.slice(0, 6)
-  // fanned stack: each lower card is wider & sits lower, like a spreading deck
-  const STEP = 34
-  const baseW = 248
 
   return (
     <motion.div className="flex flex-col min-h-full" animate={{ background: theme.bgGradient }} transition={{ duration: 0.8 }}>
-      <div className="flex-1 px-[14px] pt-[52px]">
-        <div className="flex items-center justify-between mb-[12px]">
+      <div className="flex-1 px-0 pt-[52px]">
+        <div className="flex items-center justify-between mb-[8px] px-[22px]">
           <h1 className="text-[24px] font-semibold" style={{ fontFamily: "'PingFang HK', sans-serif" }}>记录</h1>
           <button className="text-[13px] font-semibold" style={{ color: theme.textPrimary, fontFamily: "'PingFang HK', sans-serif" }} onClick={() => setViewMode('list')}>查看更多&gt;</button>
         </div>
 
-        {/* Fanned stacked record cards - each card a photo with a translucent green label bar */}
-        <div className="relative mx-auto" style={{ height: STEP * recentRecords.length + 36, width: baseW + (recentRecords.length - 1) * 24 }}>
-          {recentRecords.map((record, index) => {
-            const w = baseW + index * 24
-            const isLast = index === recentRecords.length - 1
+        {/* Fanned stacked cards — aligned LEFT, each card wider than the one above */}
+        <div className="relative" style={{ height: 220, marginLeft: 23 }}>
+          {recentRecords.map((record, i) => {
+            const w = 275 + i * 15
             return (
-              <motion.div
-                key={record.id}
-                className="absolute left-1/2 rounded-[6px] overflow-hidden cursor-pointer"
+              <motion.div key={record.id}
+                className="absolute rounded-tl-[5.4px] rounded-tr-[5.4px] overflow-hidden cursor-pointer"
                 style={{
-                  width: w,
-                  top: index * STEP,
-                  height: isLast ? 150 : STEP + 8,
-                  marginLeft: -w / 2,
-                  zIndex: index + 1,
-                  boxShadow: '0px -9px 9.9px rgba(0,0,0,0.18)',
+                  width: w, left: 0,
+                  top: i * 31,
+                  height: i === recentRecords.length - 1 ? 60 : 38,
+                  zIndex: i + 1,
+                  boxShadow: '0px -9px 9.9px rgba(0,0,0,0.25)',
                 }}
-                animate={expandedCard === record.id ? { y: -10, scale: 1.02 } : { y: 0, scale: 1 }}
-                onClick={() => handleRecordClick(record.id)}
-                whileTap={{ scale: 0.98 }}
+                animate={expandedCard === record.id ? { y: -8, scale: 1.02 } : { y: 0, scale: 1 }}
+                onClick={() => handleRecordClick(record.id)} whileTap={{ scale: 0.98 }}
               >
-                {/* photo background */}
                 <img src={record.cover} alt="" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0" style={{ backgroundColor: `${moodThemes[record.mood].primary}40` }} />
-                {/* green translucent label bar */}
-                <div className="absolute top-0 left-0 right-0 h-[27px] flex items-center px-[8px] gap-[4px]" style={{ backgroundColor: 'rgba(75,109,0,0.55)' }}>
-                  <img src={moodThemes[record.mood].iconSrc} alt="" className="w-[13px] h-[13px]" />
+                <div className="absolute inset-0" style={{ backgroundColor: `${moodThemes[record.mood].primary}30` }} />
+                <div className="absolute top-0 left-0 right-0 h-[27px] flex items-center px-[7px] gap-[4px] rounded-tl-[5.4px] rounded-tr-[5.4px]" style={{ backgroundColor: 'rgba(75,109,0,0.5)' }}>
+                  <img src={moodThemes[record.mood].iconSrc} alt="" className="w-[10px] h-[10px]" />
                   <span className="text-[12px] font-semibold text-white" style={{ fontFamily: "'PingFang HK', sans-serif" }}>{record.songTitle}-{record.artist}</span>
                   <span className="ml-auto text-[12px] text-white" style={{ fontFamily: "'Noto Sans SC', sans-serif" }}>{record.date}</span>
                 </div>
@@ -175,91 +166,64 @@ export default function RecordsPage() {
           })}
         </div>
 
-        {/* Coordinate card — Figma: left=photo+glass+text, right=vinyl record, center=coordinate+labels */}
+        {/* Coordinate card — single full-width card, photo bg, left glass overlay, right vinyl */}
         <div
-          className="rounded-[26px] overflow-hidden relative mt-[12px] cursor-pointer"
+          className="rounded-[26px] overflow-hidden relative mx-[16px] cursor-pointer"
           style={{ height: 366, boxShadow: '9px 4px 4px rgba(0,0,0,0.25)' }}
           onClick={() => router.push('/records/publish')}
         >
-          {/* LEFT HALF: photo background with theme-colored glass overlay */}
-          <div className="absolute left-0 top-0 bottom-0 w-[184px] overflow-hidden rounded-l-[26px]">
-            <img src="/records/stack-bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
-            <motion.div className="absolute inset-0" animate={{ backgroundColor: `${theme.primary}B8` }} transition={{ duration: 0.8 }} style={{ opacity: 0.64 }} />
-          </div>
+          {/* Full photo background */}
+          <img src="/records/stack-bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
 
-          {/* RIGHT HALF: vinyl record area */}
-          <div className="absolute right-0 top-0 bottom-0 left-[184px] overflow-hidden rounded-r-[26px]">
-            <img src="/records/stack-bg.jpg" alt="" className="absolute inset-0 w-[402px] h-full object-cover" style={{ marginLeft: -184 }} />
-            <motion.div className="absolute inset-0" animate={{ backgroundColor: `${theme.primary}40` }} transition={{ duration: 0.8 }} />
-          </div>
+          {/* Left glass overlay (~48% width) */}
+          <motion.div className="absolute left-0 top-0 bottom-0 w-[48%]" animate={{ backgroundColor: `${theme.primary}A0` }} transition={{ duration: 0.8 }} style={{ opacity: 0.72 }} />
 
-          {/* Vinyl record disc — concentric rings with album art center */}
-          <div className="absolute" style={{ right: -20, top: '50%', transform: 'translateY(-50%)', width: 280, height: 280 }}>
-            {/* Outer ring */}
-            <div className="absolute inset-0 rounded-full" style={{ background: `conic-gradient(from 97deg, ${theme.primary}60, ${theme.primary}30, ${theme.primary}50, ${theme.primary}20, ${theme.primary}60)` }} />
-            {/* Middle ring */}
-            <div className="absolute rounded-full" style={{ inset: 19, background: `conic-gradient(from 30deg, rgba(0,0,0,0.15), rgba(255,255,255,0.08), rgba(0,0,0,0.12), rgba(255,255,255,0.06), rgba(0,0,0,0.15))` }} />
-            {/* Inner groove */}
-            <div className="absolute rounded-full" style={{ inset: 30, border: '1px solid rgba(255,255,255,0.15)' }} />
-            {/* Album art center */}
-            <div className="absolute rounded-full overflow-hidden" style={{ inset: 68 }}>
+          {/* Coordinate cross lines spanning the full card */}
+          <div className="absolute" style={{ left: '48%', top: 0, bottom: 0, width: 1, backgroundColor: 'rgba(255,255,255,0.3)' }} />
+          <div className="absolute" style={{ top: '48%', left: 14, right: 14, height: 1, backgroundColor: 'rgba(255,255,255,0.3)' }} />
+
+          {/* Vinyl record — right side, overlapping center, partially cut off at right edge */}
+          <div className="absolute" style={{ right: -40, top: '50%', transform: 'translateY(-50%)', width: 320, height: 320 }}>
+            <div className="absolute inset-0 rounded-full" style={{ background: `conic-gradient(from 97deg, ${theme.primary}50, ${theme.primary}25, ${theme.primary}40, ${theme.primary}15, ${theme.primary}50)` }} />
+            <div className="absolute rounded-full" style={{ inset: 20, background: `conic-gradient(from 30deg, rgba(0,0,0,0.12), rgba(255,255,255,0.06), rgba(0,0,0,0.1), rgba(255,255,255,0.04), rgba(0,0,0,0.12))` }} />
+            <div className="absolute rounded-full" style={{ inset: 35, border: '1px solid rgba(255,255,255,0.12)' }} />
+            <div className="absolute rounded-full overflow-hidden" style={{ inset: 82 }}>
               <img src={songsByMood[currentMood][0].cover} alt="" className="w-full h-full object-cover" />
             </div>
-            {/* Center hole */}
-            <div className="absolute rounded-full" style={{ inset: 133, backgroundColor: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)' }} />
+            <div className="absolute rounded-full" style={{ inset: 152, backgroundColor: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.15)' }} />
           </div>
 
-          {/* Coordinate cross lines — centered over the vinyl */}
-          <div className="absolute" style={{ left: 178, top: 8, bottom: 8, width: 1, backgroundColor: 'rgba(255,255,255,0.35)' }} />
-          <div className="absolute" style={{ top: 175, left: 14, right: 14, height: 1, backgroundColor: 'rgba(255,255,255,0.35)' }} />
-
-          {/* Title + date (top-left) */}
-          <div className="absolute left-[30px] top-[16px] right-[120px]">
+          {/* Title ⊕ + date */}
+          <div className="absolute left-[30px] top-[16px]" style={{ width: 140 }}>
             <div className="flex items-start gap-[4px]">
-              <svg className="w-[18px] h-[18px] flex-shrink-0 mt-[2px]" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5}><circle cx="12" cy="12" r="10" /><path strokeLinecap="round" d="M12 8v8M8 12h8" /></svg>
-              <p className="text-[18.4px] font-semibold text-white leading-[1.35]" style={{ fontFamily: "'PingFang HK', sans-serif" }}>记录此刻心情和动人音乐</p>
+              <svg className="w-[16px] h-[16px] flex-shrink-0 mt-[3px]" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5}><circle cx="12" cy="12" r="10" /><path strokeLinecap="round" d="M12 8v8M8 12h8" /></svg>
+              <p className="text-[18.4px] font-semibold text-white leading-[1.3]" style={{ fontFamily: "'PingFang HK', sans-serif" }}>记录此刻心情和动人音乐</p>
             </div>
           </div>
-          <span className="absolute right-[16px] top-[16px] text-[10.7px] text-white leading-[1.5]" style={{ fontFamily: "'Noto Sans SC', sans-serif" }}>2026.6.23</span>
+          <span className="absolute right-[16px] top-[20px] text-[10.7px] text-white" style={{ fontFamily: "'Noto Sans SC', sans-serif" }}>2026.6.23</span>
 
-          {/* Mood labels — clustered center-left, matching Figma positions */}
-          <div className="absolute left-[127px] top-[146px] flex items-center gap-[3px]">
-            <img src="/mood/angry.svg" alt="" className="w-[20px] h-[20px]" />
-            <span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>愤怒</span>
-          </div>
-          <div className="absolute left-[185px] top-[145px] flex items-center gap-[3px]">
-            <span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>开心</span>
-            <img src="/mood/happy.svg" alt="" className="w-[22px] h-[22px]" />
-          </div>
-          <div className="absolute left-[127px] top-[183px] flex items-center gap-[3px]">
-            <img src="/mood/sad.svg" alt="" className="w-[20px] h-[20px]" />
-            <span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>悲伤</span>
-          </div>
-          <div className="absolute left-[185px] top-[183px] flex items-center gap-[3px]">
-            <span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>安逸</span>
-            <img src="/mood/relaxed.svg" alt="" className="w-[20px] h-[20px]" />
-          </div>
+          {/* Mood labels — clustered near the crosshair center */}
+          <div className="absolute left-[130px] top-[148px] flex items-center gap-[2px]"><img src="/mood/angry.svg" alt="" className="w-[19px] h-[19px]" /><span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>愤怒</span></div>
+          <div className="absolute left-[186px] top-[148px] flex items-center gap-[2px]"><span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>开心</span><img src="/mood/happy.svg" alt="" className="w-[22px] h-[22px]" /></div>
+          <div className="absolute left-[130px] top-[185px] flex items-center gap-[2px]"><img src="/mood/sad.svg" alt="" className="w-[19px] h-[19px]" /><span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>悲伤</span></div>
+          <div className="absolute left-[186px] top-[185px] flex items-center gap-[2px]"><span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>安逸</span><img src="/mood/relaxed.svg" alt="" className="w-[19px] h-[19px]" /></div>
 
-          {/* Trail dots — diagonal from upper-right toward lower-left */}
+          {/* Trail dots — diagonal upper-right to lower-left */}
           {[0,1,2,3,4,5].map(i => (
-            <div key={i} className="absolute rounded-full" style={{
-              left: 196 - i * 26,
-              top: 109 + i * 26,
-              width: 8 + i * 1.7,
-              height: 8 + i * 1.7,
-              backgroundColor: 'white',
-              opacity: 0.6 - i * 0.07,
+            <div key={i} className="absolute rounded-full bg-white" style={{
+              left: 195 - i * 22, top: 110 + i * 22,
+              width: 8 + i * 2, height: 8 + i * 2,
+              opacity: 0.55 - i * 0.06,
             }} />
           ))}
 
-          {/* Cursor — white circle with mood icon, upper-right area matching Figma */}
-          <motion.div className="absolute flex items-center justify-center" style={{
-            left: 240, top: 106, width: 31, height: 31,
-            borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.9)',
-            boxShadow: '0 0 12px rgba(255,255,255,0.5)',
+          {/* Cursor with mood icon */}
+          <div className="absolute flex items-center justify-center rounded-full" style={{
+            left: 230, top: 100, width: 31, height: 31,
+            backgroundColor: 'rgba(255,255,255,0.9)', boxShadow: '0 0 12px rgba(255,255,255,0.4)',
           }}>
             <img src={theme.iconSrc} alt="" className="w-[22px] h-[22px]" />
-          </motion.div>
+          </div>
         </div>
       </div>
       <MiniPlayer /><TabBar />
