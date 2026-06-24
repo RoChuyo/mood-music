@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useMoodStore, moodThemes } from '@/store/useMoodStore'
-import { songsByMood, aiMessages } from '@/data/songs'
+import { songsByMood, personalSongs, aiMessages } from '@/data/songs'
 import MoodCoordinate from '@/components/MoodCoordinate'
 import MiniPlayer from '@/components/MiniPlayer'
 import TabBar from '@/components/TabBar'
@@ -12,8 +12,8 @@ export default function HomePage() {
   const router = useRouter()
   const { currentMood, setCurrentSongIndex, coordinatePosition, setIsPlaying } = useMoodStore()
   const theme = moodThemes[currentMood]
-  const songs = songsByMood[currentMood]
   const [listMode, setListMode] = useState<'recommend' | 'personal'>('recommend')
+  const songs = listMode === 'personal' ? personalSongs : songsByMood[currentMood]
 
   const coordX = Math.round(coordinatePosition.x)
   const coordY = Math.round(coordinatePosition.y)
@@ -94,28 +94,30 @@ export default function HomePage() {
           根据HRV数值和您的选择AI会自动为你推荐歌曲
         </p>
 
-        {/* AI message */}
-        <motion.div className="mx-[22px] mt-[8px] relative"
-          animate={{ backgroundColor: `${theme.primaryLight}8C` }} transition={{ duration: 0.8 }}
-          style={{ border: '1px solid rgba(136,120,73,0.18)', height: 119 }}>
-          <div className="px-[11px] pt-[16px]">
-            <AnimatePresence mode="wait">
-              <motion.p key={currentMood} className="text-[14px] font-medium leading-[1.5]"
-                style={{ color: '#58480E', fontFamily: "'Noto Sans SC', sans-serif", width: 181 }}
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                {aiMessages[currentMood]}
-              </motion.p>
-            </AnimatePresence>
-          </div>
-          <p className="absolute bottom-[8px] right-[11px] text-[8px] leading-[1.5]" style={{ color: '#58480E', fontFamily: "'PingFang HK', sans-serif" }}>
-            AI会根据的情绪提供暖心短句
-          </p>
-          {/* Paperclip - sticky note clip top-right */}
-          <svg className="absolute top-[-10px] right-[14px] w-[28px] h-[40px]" viewBox="0 0 28 40" fill="none" style={{ transform: 'rotate(8deg)' }}>
-            <path d="M14 4 L14 28 a4 4 0 0 1-8 0 L6 9 a2.5 2.5 0 0 1 5 0 L11 26"
-              stroke="#88784980" strokeWidth="2.2" strokeLinecap="round" fill="none" />
-          </svg>
-        </motion.div>
+        {/* AI message — only visible in recommend mode */}
+        {listMode === 'recommend' && (
+          <motion.div className="mx-[22px] mt-[8px] relative"
+            initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 119, backgroundColor: `${theme.primaryLight}8C` }}
+            exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.4 }}
+            style={{ border: '1px solid rgba(136,120,73,0.18)' }}>
+            <div className="px-[11px] pt-[16px]">
+              <AnimatePresence mode="wait">
+                <motion.p key={currentMood} className="text-[14px] font-medium leading-[1.5]"
+                  style={{ color: '#58480E', fontFamily: "'Noto Sans SC', sans-serif", width: 181 }}
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                  {aiMessages[currentMood]}
+                </motion.p>
+              </AnimatePresence>
+            </div>
+            <p className="absolute bottom-[8px] right-[11px] text-[8px] leading-[1.5]" style={{ color: '#58480E', fontFamily: "'PingFang HK', sans-serif" }}>
+              AI会根据的情绪提供暖心短句
+            </p>
+            <svg className="absolute top-[-10px] right-[14px] w-[28px] h-[40px]" viewBox="0 0 28 40" fill="none" style={{ transform: 'rotate(8deg)' }}>
+              <path d="M14 4 L14 28 a4 4 0 0 1-8 0 L6 9 a2.5 2.5 0 0 1 5 0 L11 26"
+                stroke="#88784980" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+            </svg>
+          </motion.div>
+        )}
 
         {/* Song list */}
         <motion.div className="mx-[20px] mt-[8px] rounded-[20px] overflow-hidden mb-[8px]"

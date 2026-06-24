@@ -61,6 +61,16 @@ export const moodRecords: MoodRecord[] = [
   { id: 'rec16', songTitle: '无地自容', artist: '黑豹乐队', mood: 'angry', date: '2026.6.7', title: '释放', content: '把压力都释放出来', cover: '/covers/wudizirong.jpg' },
 ]
 
+// Personal playlist — different songs from the Figma 个人歌单 view
+export const personalSongs: Song[] = [
+  { id: 'p1', title: '关于我在地铁上莫名其妙...', artist: '孙天宇', album: '个人单曲', cover: '/covers/xiaoxingyun.jpg', date: '2026.6.22', duration: '03:28', mood: 'happy' },
+  { id: 'p2', title: '坏天气', artist: '孙燕姿', album: '是时候', cover: '/covers/yujian.jpg', date: '2026.6.22', duration: '04:12', mood: 'relaxed' },
+  { id: 'p3', title: '越来越不懂', artist: '蔡健雅', album: 'Goodbye & Hello', cover: '/covers/manman.jpg', date: '2026.6.22', duration: '04:35', mood: 'sad' },
+  { id: 'p4', title: '鲜花', artist: '回春丹', album: '鲜花', cover: '/covers/kuaile.jpg', date: '2026.6.22', duration: '03:45', mood: 'happy' },
+  { id: 'p5', title: '万物盛开法则', artist: '大张伟', album: '万物盛开法则', cover: '/covers/ribuluo.jpg', date: '2026.6.22', duration: '03:52', mood: 'happy' },
+  { id: 'p6', title: '第一天', artist: '孙燕姿', album: '第一天', cover: '/covers/diyitian.jpg', date: '2026.6.22', duration: '04:10', mood: 'relaxed' },
+]
+
 export const aiMessages: Record<Mood, string> = {
   happy: '不用立刻变好，先让心安静下来',
   sad: '先允许自己难过，再慢慢呼吸',

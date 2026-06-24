@@ -125,7 +125,7 @@ export default function PlayerPage() {
   }
 
   return (
-    <motion.div className="min-h-screen flex flex-col" animate={{ background: `linear-gradient(180deg, ${theme.bg} 0%, #fff 100%)` }} transition={{ duration: 0.8 }}>
+    <motion.div className="flex flex-col h-full" animate={{ background: `linear-gradient(180deg, ${theme.bg} 0%, #fff 100%)` }} transition={{ duration: 0.8 }}>
       {/* Header */}
       <div className="flex items-center justify-between px-[16px] pt-[51px] pb-[7px]">
         <button onClick={() => router.back()} className="w-[44px] h-[44px] flex items-center justify-center">
@@ -136,10 +136,10 @@ export default function PlayerPage() {
         </button>
       </div>
 
-      <div className="flex-1 flex flex-col px-[28px]">
+      <div className="flex flex-col px-[28px]">
         {/* Album art - 346x346, rounded 8px, shadow */}
         <motion.div
-          className="w-[346px] h-[346px] rounded-[8px] overflow-hidden mx-auto"
+          className="w-[310px] h-[310px] rounded-[8px] overflow-hidden mx-auto"
           style={{ boxShadow: '0px 4px 4px rgba(0,0,0,0.25)' }}
           onClick={() => setShowLyrics(true)}
         >
@@ -218,7 +218,7 @@ export default function PlayerPage() {
       </div>
 
       {/* Bottom mood record bar - glass pill */}
-      <div className="mx-[14px] mb-[20px] mt-auto rounded-[51px] h-[68px] flex items-center px-[14px] gap-[8px]"
+      <div className="mx-[14px] mb-[20px] mt-[24px] rounded-[51px] h-[68px] flex items-center px-[14px] gap-[8px]"
         style={{ backgroundColor: `${theme.cardBg}33`, backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
         onClick={() => router.push('/records/publish')}>
         <img src="/icons/record-pen.svg" alt="" className="w-[40px] h-[40px]" />
