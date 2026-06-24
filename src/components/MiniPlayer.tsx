@@ -13,9 +13,8 @@ export default function MiniPlayer() {
 
   return (
     <motion.div
-      className="fixed bottom-[87px] left-0 right-0 z-40 mx-auto h-[94px]"
+      className="sticky bottom-[87px] left-0 right-0 z-40 h-[94px] flex-shrink-0"
       style={{
-        maxWidth: 402,
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
       }}

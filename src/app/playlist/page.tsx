@@ -40,11 +40,11 @@ export default function PlaylistPage() {
 
   return (
     <motion.div
-      className="min-h-screen pb-[181px]"
+      className="flex flex-col min-h-full"
       animate={{ background: activeTheme.bgGradient }}
       transition={{ duration: 0.8 }}
     >
-      <div className="pt-[46px]">
+      <div className="flex-1 pt-[46px]">
         {/* Search bar */}
         <div className="px-[6px] flex items-center h-[51px]">
           <div className="relative flex-1 h-[36px] flex items-center">

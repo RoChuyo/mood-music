@@ -21,8 +21,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" className="h-full antialiased">
-      <body className="min-h-full flex flex-col mx-auto relative" style={{ maxWidth: 402 }}>
-        {children}
+      <body className="h-full flex items-center justify-center bg-[#1a1a2e]">
+        <div
+          id="phone-container"
+          className="relative overflow-hidden bg-white"
+          style={{
+            width: 402,
+            height: 874,
+            borderRadius: 40,
+            boxShadow: '0 0 0 8px #111, 0 0 0 10px #333, 0 25px 80px rgba(0,0,0,0.6)',
+          }}
+        >
+          <div className="w-full h-full overflow-y-auto overflow-x-hidden relative" id="app-scroll">
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );

@@ -6,31 +6,50 @@
   --foreground: #3A580E;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
-  background: var(--background);
   color: var(--foreground);
   font-family: 'PingFang SC', 'PingFang HK', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#app-scroll {
+  -webkit-overflow-scrolling: touch;
   overscroll-behavior: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
+}
+
+#app-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+#app-scroll {
+  scrollbar-width: none;
 }
 
 * {
   -webkit-tap-highlight-color: transparent;
-}
-
-::-webkit-scrollbar {
-  display: none;
-}
-
-html {
-  scrollbar-width: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 input, textarea {
   user-select: text;
   -webkit-user-select: text;
+}
+
+@media (max-width: 430px) {
+  #phone-container {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
 }

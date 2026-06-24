@@ -13,7 +13,7 @@ export default function ProfilePage() {
 
   return (
     <motion.div
-      className="min-h-screen pb-[181px]"
+      className="flex flex-col min-h-full"
       style={{ backgroundColor: '#F7FFEB' }}
     >
       {/* Cover photo - 466px tall, with gradient overlay */}

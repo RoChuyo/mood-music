@@ -37,8 +37,8 @@ export default function RecordsPage() {
     const record = moodRecords.find(r => r.id === selectedRecord)!
     const rTheme = moodThemes[record.mood]
     return (
-      <motion.div className="min-h-screen pb-[181px]" initial={{ x: '100%' }} animate={{ x: 0, background: rTheme.bgGradient }} transition={{ duration: 0.3 }}>
-        <div className="px-[14px] pt-[52px]">
+      <motion.div className="flex flex-col min-h-full" initial={{ x: '100%' }} animate={{ x: 0, background: rTheme.bgGradient }} transition={{ duration: 0.3 }}>
+        <div className="flex-1 px-[14px] pt-[52px]">
           <div className="flex items-center justify-between mb-[16px]">
             <h1 className="text-[24px] font-semibold" style={{ fontFamily: "'PingFang HK', sans-serif" }}>记录</h1>
             <button className="text-[13px] font-semibold" style={{ color: rTheme.textPrimary }} onClick={() => setViewMode('list')}>查看更多&gt;</button>
@@ -94,8 +94,8 @@ export default function RecordsPage() {
 
   if (viewMode === 'list') {
     return (
-      <motion.div className="min-h-screen pb-[181px]" animate={{ background: theme.bgGradient }} transition={{ duration: 0.8 }}>
-        <div className="px-[14px] pt-[52px]">
+      <motion.div className="flex flex-col min-h-full" animate={{ background: theme.bgGradient }} transition={{ duration: 0.8 }}>
+        <div className="flex-1 px-[14px] pt-[52px]">
           <div className="flex items-center justify-between mb-[16px]">
             <h1 className="text-[24px] font-semibold" style={{ fontFamily: "'PingFang HK', sans-serif" }}>记录</h1>
             <button className="text-[13px]" style={{ color: theme.textSecondary }} onClick={() => setViewMode('cards')}>返回</button>
@@ -121,8 +121,8 @@ export default function RecordsPage() {
   const recentRecords = moodRecords.slice(0, 6)
 
   return (
-    <motion.div className="min-h-screen pb-[181px]" animate={{ background: theme.bgGradient }} transition={{ duration: 0.8 }}>
-      <div className="px-[14px] pt-[52px]">
+    <motion.div className="flex flex-col min-h-full" animate={{ background: theme.bgGradient }} transition={{ duration: 0.8 }}>
+      <div className="flex-1 px-[14px] pt-[52px]">
         <div className="flex items-center justify-between mb-[12px]">
           <h1 className="text-[24px] font-semibold" style={{ fontFamily: "'PingFang HK', sans-serif" }}>记录</h1>
           <button className="text-[13px] font-semibold" style={{ color: theme.textPrimary, fontFamily: "'PingFang HK', sans-serif" }} onClick={() => setViewMode('list')}>查看更多&gt;</button>
