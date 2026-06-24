@@ -11,7 +11,15 @@ type ViewMode = 'cards' | 'list' | 'detail'
 
 const moodBgColors: Record<Mood, string> = { happy: '#E9F8D3', sad: '#D3E8F8', angry: '#F8D3DB', relaxed: '#F8F0D3' }
 const moodLabelBarColors: Record<Mood, string> = { happy: 'rgba(75,109,0,0.5)', sad: 'rgba(0,65,109,0.5)', angry: 'rgba(109,0,30,0.5)', relaxed: 'rgba(109,96,0,0.5)' }
-const moodGlassColors: Record<Mood, string> = { happy: 'rgba(80,134,0,0.72)', sad: 'rgba(0,85,134,0.72)', angry: 'rgba(134,0,40,0.72)', relaxed: 'rgba(134,120,0,0.72)' }
+// Frosted-glass tint per mood (Figma effective alpha ≈ 0.45)
+const moodGlass: Record<Mood, string> = { happy: 'rgba(80,134,0,0.45)', sad: 'rgba(0,85,134,0.45)', angry: 'rgba(134,0,40,0.45)', relaxed: 'rgba(134,120,0,0.45)' }
+// Cursor lands in the quadrant matching the mood (top-left of the 31px circle, card-relative)
+const cursorPos: Record<Mood, { left: number; top: number }> = {
+  happy: { left: 250, top: 100 },   // top-right
+  angry: { left: 95, top: 100 },    // top-left
+  sad: { left: 95, top: 235 },      // bottom-left
+  relaxed: { left: 250, top: 235 }, // bottom-right
+}
 
 export default function RecordsPage() {
   const router = useRouter()
@@ -137,73 +145,82 @@ export default function RecordsPage() {
           })}
         </div>
 
-        {/* Coordinate card — 366x366 square, Figma: left=16px, top=319px (relative ~270px after cards) */}
-        <div className="relative mx-[16px]" style={{ width: 370, height: 366, borderRadius: 26, overflow: 'hidden', boxShadow: '9px 4px 4px rgba(0,0,0,0.25)' }}
+        {/* ===== 记录坐标轴 — 366x366 card, exact Figma positions ===== */}
+        <div className="relative ml-[16px]" style={{ width: 366, height: 366, borderRadius: 26, overflow: 'hidden', boxShadow: '9px 4px 4px rgba(0,0,0,0.25)' }}
           onClick={() => router.push('/records/publish')}>
 
-          {/* Left half: photo + mood-colored glass overlay (184px wide) */}
-          <div className="absolute left-0 top-0 bottom-0 w-[184px]">
-            <img src={vinylCover} alt="" className="absolute inset-0 w-[370px] h-full object-cover" />
-            <motion.div className="absolute inset-0" animate={{ backgroundColor: moodGlassColors[currentMood] }} transition={{ duration: 0.8 }} style={{ opacity: 0.64 }} />
+          {/* Base background = page-gradient tint (right half shows this behind vinyl) */}
+          <motion.div className="absolute inset-0" animate={{ backgroundColor: theme.cardBg }} transition={{ duration: 0.8 }} />
+
+          {/* Left photo card — only left 184px (Figma node image5 / 183.947px wide) */}
+          <div className="absolute left-0 top-0 bottom-0" style={{ width: 184 }}>
+            <img src={vinylCover} alt="" className="absolute inset-0 h-full object-cover" style={{ width: 366, maxWidth: 'none' }} />
           </div>
 
-          {/* Right half: photo (no glass, just slight tint) */}
-          <div className="absolute left-[184px] top-0 bottom-0 right-0">
-            <img src={vinylCover} alt="" className="absolute inset-0 w-[370px] h-full object-cover" style={{ marginLeft: -184 }} />
-            <motion.div className="absolute inset-0" animate={{ backgroundColor: `${theme.primary}20` }} transition={{ duration: 0.8 }} />
-          </div>
-
-          {/* Vinyl record — 3 concentric circles, Figma positions */}
-          <div className="absolute" style={{ left: 200, top: 10, width: 357, height: 357 }}>
-            {/* Outer ring */}
-            <div className="absolute inset-[19px] rounded-full" style={{ background: `conic-gradient(from 97deg, ${theme.primary}50, ${theme.primary}20, ${theme.primary}40, ${theme.primary}15, ${theme.primary}50)`, border: '1px solid rgba(255,255,255,0.1)' }} />
-            {/* Middle groove ring */}
-            <div className="absolute rounded-full" style={{ inset: 38, background: `conic-gradient(from 30deg, rgba(0,0,0,0.1), rgba(255,255,255,0.05), rgba(0,0,0,0.08), rgba(255,255,255,0.03), rgba(0,0,0,0.1))`, border: '1px solid rgba(255,255,255,0.08)' }} />
-            {/* Album art center circle — 145px diameter */}
-            <div className="absolute rounded-full overflow-hidden" style={{ inset: 106 }}>
+          {/* Vinyl record — center (194,188), outer ring 319px, album art 145px */}
+          <div className="absolute" style={{ left: 34.6, top: 28.6, width: 319, height: 319 }}>
+            <div className="absolute inset-0 rounded-full" style={{ background: `conic-gradient(from 97deg, ${theme.primary}, ${theme.primary}99, ${theme.primary}, ${theme.primary}88, ${theme.primary})` }} />
+            <div className="absolute rounded-full" style={{ inset: 14, background: `repeating-radial-gradient(circle, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, rgba(255,255,255,0.04) 2px, rgba(255,255,255,0.04) 3px)` }} />
+            <div className="absolute rounded-full" style={{ inset: 78, border: '2px solid rgba(255,255,255,0.12)' }} />
+            {/* album art center 145px */}
+            <div className="absolute rounded-full overflow-hidden" style={{ inset: 87 }}>
               <img src={vinylCover} alt="" className="w-full h-full object-cover" />
             </div>
+            <div className="absolute rounded-full" style={{ inset: 152, backgroundColor: 'rgba(0,0,0,0.35)', border: '1px solid rgba(255,255,255,0.3)' }} />
           </div>
 
-          {/* Coordinate cross lines */}
-          <div className="absolute" style={{ left: 178, top: 8, bottom: 8, width: 1, backgroundColor: 'rgba(255,255,255,0.35)' }} />
-          <div className="absolute" style={{ top: 175, left: 14, right: 14, height: 1, backgroundColor: 'rgba(255,255,255,0.35)' }} />
+          {/* ===== FROSTED GLASS overlay — full card, blur + mood tint ===== */}
+          <motion.div className="absolute inset-0"
+            animate={{ backgroundColor: moodGlass[currentMood] }} transition={{ duration: 0.8 }}
+            style={{ backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }} />
+          {/* Extra darker glass over the left photo half (Figma stacks photo-card glass + overlay) */}
+          <motion.div className="absolute left-0 top-0 bottom-0" style={{ width: 184 }}
+            animate={{ backgroundColor: moodGlass[currentMood] }} transition={{ duration: 0.8 }} />
 
-          {/* ⊕ Title + date */}
-          <div className="absolute left-[30px] top-[16px]" style={{ width: 140 }}>
-            <div className="flex items-start gap-[4px]">
-              <svg className="w-[14px] h-[14px] flex-shrink-0 mt-[4px]" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5}><circle cx="12" cy="12" r="10"/><path strokeLinecap="round" d="M12 8v8M8 12h8"/></svg>
-              <p className="text-[18.4px] font-semibold text-white leading-[1.3]" style={{ fontFamily: "'PingFang HK', sans-serif" }}>记录此刻心情和动人音乐</p>
-            </div>
-          </div>
-          <span className="absolute right-[100px] top-[20px] text-[10.7px] text-white" style={{ fontFamily: "'Noto Sans SC', sans-serif" }}>2026.6.23</span>
-
-          {/* Weather animation icon — mood-specific, positioned below title */}
-          <div className="absolute left-[30px] top-[80px]">
-            <img src={theme.iconSrc} alt="" className="w-[40px] h-[40px] opacity-80" />
-          </div>
-
-          {/* Mood labels — Figma: clustered near center (left~127-186, top~146-183 relative to card) */}
-          <div className="absolute left-[127px] top-[146px] flex items-center gap-[2px]"><img src="/mood/angry.svg" alt="" className="w-[20px] h-[20px]"/><span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>愤怒</span></div>
-          <div className="absolute left-[185px] top-[145px] flex items-center gap-[2px]"><span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>开心</span><img src="/mood/happy.svg" alt="" className="w-[22px] h-[22px]"/></div>
-          <div className="absolute left-[127px] top-[183px] flex items-center gap-[2px]"><img src="/mood/sad.svg" alt="" className="w-[20px] h-[20px]"/><span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>悲伤</span></div>
-          <div className="absolute left-[185px] top-[183px] flex items-center gap-[2px]"><span className="text-[10px] font-bold text-white" style={{ fontFamily: "'Oxygen', sans-serif" }}>安逸</span><img src="/mood/relaxed.svg" alt="" className="w-[20px] h-[20px]"/></div>
-
-          {/* Trail dots — Figma: from upper-right diagonal to lower-left */}
-          {[0,1,2,3,4,5].map(i => (
-            <div key={i} className="absolute rounded-full bg-white" style={{
-              left: 200 - i * 24, top: 108 + i * 24,
-              width: 8 + i * 2, height: 8 + i * 2,
-              opacity: 0.5 - i * 0.06,
-            }} />
+          {/* ===== Content on top of glass (sharp) ===== */}
+          {/* Weather particles — scattered faint dots */}
+          {[[60,60],[120,40],[250,50],[300,90],[90,300],[280,260],[200,310],[150,200],[320,180]].map(([x,y],i)=>(
+            <div key={i} className="absolute rounded-full bg-white" style={{ left: x, top: y, width: 3, height: 3, opacity: 0.35 }} />
           ))}
 
-          {/* Cursor — white circle with mood icon */}
+          {/* Title ⊕ — icon at (13.7,22.5), text at (30.3,15.7) */}
+          <svg className="absolute" style={{ left: 13.7, top: 22.5, width: 14, height: 14 }} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5}><circle cx="12" cy="12" r="10"/><path strokeLinecap="round" d="M12 8v8M8 12h8"/></svg>
+          <p className="absolute font-semibold text-white" style={{ left: 30.3, top: 15.7, width: 139, fontSize: 18.39, lineHeight: 1.5, fontFamily: "'PingFang HK', sans-serif" }}>记录此刻心情和动人音乐</p>
+          {/* Date — (260,20.7) */}
+          <span className="absolute text-white" style={{ left: 246, top: 20.7, fontSize: 10.7, fontFamily: "'Noto Sans SC', sans-serif" }}>2026.6.23</span>
+
+          {/* Coordinate cross — H-line (13.7,174.2 w322.9), V-line (178.1,7.8 h319) */}
+          <div className="absolute" style={{ left: 13.7, top: 174.2, width: 322.9, height: 1, backgroundColor: 'rgba(255,255,255,0.4)' }} />
+          <div className="absolute" style={{ left: 178.1, top: 7.8, width: 1, height: 319, backgroundColor: 'rgba(255,255,255,0.4)' }} />
+
+          {/* Mood labels — clustered around crosshair (exact Figma card-relative) */}
+          <div className="absolute flex items-center gap-[3px]" style={{ left: 127.2, top: 145.8 }}><img src="/mood/angry.svg" alt="" style={{ width: 19, height: 19 }}/><span className="font-bold text-white" style={{ fontSize: 10, fontFamily: "'Oxygen', sans-serif" }}>愤怒</span></div>
+          <div className="absolute flex items-center gap-[3px]" style={{ left: 185.9, top: 144.8 }}><span className="font-bold text-white" style={{ fontSize: 10, fontFamily: "'Oxygen', sans-serif" }}>开心</span><img src="/mood/happy.svg" alt="" style={{ width: 22, height: 22 }}/></div>
+          <div className="absolute flex items-center gap-[3px]" style={{ left: 127.2, top: 183 }}><img src="/mood/sad.svg" alt="" style={{ width: 19, height: 19 }}/><span className="font-bold text-white" style={{ fontSize: 10, fontFamily: "'Oxygen', sans-serif" }}>悲伤</span></div>
+          <div className="absolute flex items-center gap-[3px]" style={{ left: 185.9, top: 183 }}><span className="font-bold text-white" style={{ fontSize: 10, fontFamily: "'Oxygen', sans-serif" }}>安逸</span><img src="/mood/relaxed.svg" alt="" style={{ width: 19, height: 19 }}/></div>
+
+          {/* Trail dots — fading trail leading to the mood-quadrant cursor */}
+          {[0,1,2,3,4,5].map(i => {
+            const cur = cursorPos[currentMood]
+            const cx = cur.left + 15.5, cy = cur.top + 15.5
+            const t = 0.18 + i * 0.16
+            return (
+              <div key={i} className="absolute rounded-full bg-white" style={{
+                left: cx + (178 - cx) * t - (9 - i) / 2,
+                top: cy + (174 - cy) * t - (9 - i) / 2,
+                width: 18 - i * 2, height: 18 - i * 2,
+                opacity: 0.5 - i * 0.06,
+              }} />
+            )
+          })}
+
+          {/* Cursor — white glow circle with current-mood icon, in the mood's quadrant */}
           <div className="absolute flex items-center justify-center rounded-full" style={{
-            left: 234, top: 95, width: 31, height: 31,
-            backgroundColor: 'rgba(255,255,255,0.9)', boxShadow: '0 0 12px rgba(255,255,255,0.4)',
+            left: cursorPos[currentMood].left, top: cursorPos[currentMood].top,
+            width: 31, height: 31,
+            backgroundColor: 'rgba(255,255,255,0.92)', boxShadow: '0 0 14px rgba(255,255,255,0.55)',
           }}>
-            <img src={theme.iconSrc} alt="" className="w-[22px] h-[22px]" />
+            <img src={theme.iconSrc} alt="" style={{ width: 21, height: 21 }} />
           </div>
         </div>
       </div>
