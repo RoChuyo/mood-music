@@ -110,7 +110,11 @@ export default function HomePage() {
           <p className="absolute bottom-[8px] right-[11px] text-[8px] leading-[1.5]" style={{ color: '#58480E', fontFamily: "'PingFang HK', sans-serif" }}>
             AI会根据的情绪提供暖心短句
           </p>
-          <button className="absolute top-0 right-0"><img src="/icons/edit-note.svg" alt="" className="w-[32px] h-[32px] opacity-50" /></button>
+          {/* Paperclip - sticky note clip top-right */}
+          <svg className="absolute top-[-10px] right-[14px] w-[28px] h-[40px]" viewBox="0 0 28 40" fill="none" style={{ transform: 'rotate(8deg)' }}>
+            <path d="M14 4 L14 28 a4 4 0 0 1-8 0 L6 9 a2.5 2.5 0 0 1 5 0 L11 26"
+              stroke="#88784980" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+          </svg>
         </motion.div>
 
         {/* Song list */}

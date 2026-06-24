@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import StatusBar from "@/components/StatusBar";
 
 export const metadata: Metadata = {
   title: "乐轴轴 - 心情音乐",
@@ -35,6 +36,7 @@ export default function RootLayout({
           <div className="w-full h-full overflow-y-auto overflow-x-hidden relative" id="app-scroll">
             {children}
           </div>
+          <StatusBar />
         </div>
       </body>
     </html>

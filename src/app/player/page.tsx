@@ -87,21 +87,21 @@ export default function PlayerPage() {
             <span className="text-[12.78px]" style={{ color: theme.textPrimary, fontFamily: "'Oxygen', sans-serif" }}>{song.duration}</span>
           </div>
           <div className="flex items-center justify-center gap-[16px] mt-[20px] mb-[12px]">
-            <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: `${theme.textPrimary}12` }}>
-              <svg className="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke={theme.textPrimary} strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+            <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: theme.primary }}>
+              <svg className="w-[20px] h-[20px]" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
             </button>
-            <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: `${theme.textPrimary}12` }} onClick={handlePrev}>
-              <svg className="w-[22px] h-[22px]" fill={theme.textPrimary} viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" /></svg>
+            <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: theme.primary }} onClick={handlePrev}>
+              <svg className="w-[20px] h-[20px]" fill="#fff" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" /></svg>
             </button>
-            <button className="w-[52px] h-[52px] rounded-full bg-black flex items-center justify-center shadow-lg" onClick={togglePlaying}>
-              {isPlaying ? <svg className="w-[24px] h-[24px] text-white" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
-              : <svg className="w-[24px] h-[24px] text-white ml-[2px]" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>}
+            <button className="w-[52px] h-[52px] rounded-full bg-white flex items-center justify-center" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }} onClick={togglePlaying}>
+              {isPlaying ? <svg className="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke={theme.primary} strokeWidth={2}><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+              : <svg className="w-[24px] h-[24px] ml-[2px]" viewBox="0 0 24 24" fill="none" stroke={theme.primary} strokeWidth={2} strokeLinejoin="round"><path d="M8 5v14l11-7z"/></svg>}
             </button>
-            <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: `${theme.textPrimary}12` }} onClick={handleNext}>
-              <svg className="w-[22px] h-[22px]" fill={theme.textPrimary} viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg>
+            <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: theme.primary }} onClick={handleNext}>
+              <svg className="w-[20px] h-[20px]" fill="#fff" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg>
             </button>
-            <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: `${theme.textPrimary}12` }}>
-              <svg className="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke={theme.textPrimary} strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: theme.primary }}>
+              <svg className="w-[20px] h-[20px]" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
             </button>
           </div>
         </div>
@@ -109,7 +109,7 @@ export default function PlayerPage() {
         <div className="mx-[14px] mb-[20px] rounded-[51px] h-[68px] flex items-center px-[14px] gap-[8px]"
           style={{ backgroundColor: `${theme.cardBg}33`, backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
           onClick={() => router.push('/records/publish')}>
-          <img src="/ui/record-circle.svg" alt="" className="w-[40px] h-[40px]" />
+          <img src="/icons/record-pen.svg" alt="" className="w-[40px] h-[40px]" />
           <div className="flex-1 min-w-0">
             <p className="text-[14px] font-semibold leading-[1.5]" style={{ color: theme.textPrimary, fontFamily: "'PingFang SC', sans-serif" }}>记录此刻心情</p>
             <p className="text-[10px] leading-[1.5]" style={{ color: theme.textPrimary, fontFamily: "'Noto Sans SC', sans-serif" }}>2026.6.11</p>
@@ -195,24 +195,24 @@ export default function PlayerPage() {
           <span className="text-[12.78px] leading-[1.5] w-[38px] text-right" style={{ color: theme.textPrimary, fontFamily: "'Oxygen', sans-serif" }}>{song.duration}</span>
         </div>
 
-        {/* Playback controls */}
+        {/* Playback controls - side buttons filled with theme color, center white */}
         <div className="flex items-center justify-center gap-[16px] mt-[28px]">
-          <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: `${theme.textPrimary}12` }}>
-            <svg className="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke={theme.textPrimary} strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+          <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: theme.primary }}>
+            <svg className="w-[20px] h-[20px]" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
           </button>
-          <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: `${theme.textPrimary}12` }} onClick={handlePrev}>
-            <svg className="w-[22px] h-[22px]" fill={theme.textPrimary} viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" /></svg>
+          <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: theme.primary }} onClick={handlePrev}>
+            <svg className="w-[20px] h-[20px]" fill="#fff" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" /></svg>
           </button>
-          <motion.button className="w-[52px] h-[52px] rounded-full bg-black flex items-center justify-center" onClick={togglePlaying} whileTap={{ scale: 0.9 }}
-            style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
-            {isPlaying ? <svg className="w-[24px] h-[24px] text-white" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
-            : <svg className="w-[24px] h-[24px] text-white ml-[2px]" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>}
+          <motion.button className="w-[52px] h-[52px] rounded-full bg-white flex items-center justify-center" onClick={togglePlaying} whileTap={{ scale: 0.9 }}
+            style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+            {isPlaying ? <svg className="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke={theme.primary} strokeWidth={2}><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+            : <svg className="w-[24px] h-[24px] ml-[2px]" viewBox="0 0 24 24" fill="none" stroke={theme.primary} strokeWidth={2} strokeLinejoin="round"><path d="M8 5v14l11-7z"/></svg>}
           </motion.button>
-          <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: `${theme.textPrimary}12` }} onClick={handleNext}>
-            <svg className="w-[22px] h-[22px]" fill={theme.textPrimary} viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg>
+          <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: theme.primary }} onClick={handleNext}>
+            <svg className="w-[20px] h-[20px]" fill="#fff" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg>
           </button>
-          <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: `${theme.textPrimary}12` }}>
-            <svg className="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke={theme.textPrimary} strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          <button className="w-[35px] h-[35px] rounded-full flex items-center justify-center" style={{ backgroundColor: theme.primary }}>
+            <svg className="w-[20px] h-[20px]" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
           </button>
         </div>
       </div>
@@ -221,7 +221,7 @@ export default function PlayerPage() {
       <div className="mx-[14px] mb-[20px] mt-auto rounded-[51px] h-[68px] flex items-center px-[14px] gap-[8px]"
         style={{ backgroundColor: `${theme.cardBg}33`, backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
         onClick={() => router.push('/records/publish')}>
-        <img src="/ui/record-circle.svg" alt="" className="w-[40px] h-[40px]" />
+        <img src="/icons/record-pen.svg" alt="" className="w-[40px] h-[40px]" />
         <div className="flex-1 min-w-0">
           <p className="text-[14px] font-semibold leading-[1.5]" style={{ color: theme.textPrimary, fontFamily: "'PingFang SC', sans-serif" }}>记录此刻心情</p>
           <p className="text-[10px] leading-[1.5]" style={{ color: theme.textPrimary, fontFamily: "'Noto Sans SC', sans-serif" }}>2026.6.11</p>

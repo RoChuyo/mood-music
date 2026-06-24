@@ -9,11 +9,11 @@ import TabBar from '@/components/TabBar'
 
 type FilterMode = 'personal' | Mood | 'recommend'
 
-const filterButtons: { key: FilterMode; label: string; iconSrc?: string; isMood: boolean }[] = [
-  { key: 'personal', label: '个人', isMood: false },
+const filterButtons: { key: FilterMode; label: string; iconSrc?: string; glyph?: 'heart' | 'list'; isMood: boolean }[] = [
+  { key: 'personal', label: '个人', glyph: 'heart', isMood: false },
   { key: 'happy', label: '开心', iconSrc: '/mood/happy.svg', isMood: true },
   { key: 'relaxed', label: '安逸', iconSrc: '/mood/relaxed.svg', isMood: true },
-  { key: 'recommend', label: '推荐', isMood: false },
+  { key: 'recommend', label: '推荐', glyph: 'list', isMood: false },
   { key: 'sad', label: '悲伤', iconSrc: '/mood/sad.svg', isMood: true },
   { key: 'angry', label: '愤怒', iconSrc: '/mood/angry.svg', isMood: true },
 ]
@@ -37,6 +37,40 @@ export default function PlaylistPage() {
     : songsByMood[displayMood]
 
   const activeTheme = moodThemes[displayMood]
+
+  const renderFilterButton = (btn: typeof filterButtons[number]) => {
+    const isActive = activeFilter === btn.key
+    const btnTheme = btn.isMood ? moodThemes[btn.key as Mood] : activeTheme
+    const iconColor = isActive ? '#fff' : btnTheme.textPrimary
+    return (
+      <motion.button
+        key={btn.key}
+        className="flex items-center justify-center gap-[5px] h-[43px] w-[104px] rounded-[71px] text-[14px] font-medium border"
+        style={{ fontFamily: "'Noto Sans SC', sans-serif" }}
+        onClick={() => handleFilterClick(btn.key, btn.isMood)}
+        animate={{
+          backgroundColor: isActive ? btnTheme.primary : btnTheme.cardBg,
+          color: isActive ? '#fff' : btnTheme.textPrimary,
+          borderColor: isActive ? btnTheme.textPrimary : 'transparent',
+        }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ duration: 0.3 }}
+      >
+        {btn.iconSrc && <img src={btn.iconSrc} alt="" className="w-[18px] h-[18px]" />}
+        {btn.glyph === 'heart' && (
+          <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke={iconColor} strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        )}
+        {btn.glyph === 'list' && (
+          <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke={iconColor} strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h10" />
+          </svg>
+        )}
+        {btn.label}
+      </motion.button>
+    )
+  }
 
   return (
     <motion.div
@@ -66,52 +100,10 @@ export default function PlaylistPage() {
         {/* Filter buttons - 2 rows with exact Figma layout */}
         <div className="px-[22px] mb-[16px]">
           <div className="flex gap-[15px] mb-[10px]">
-            {filterButtons.slice(0, 3).map((btn) => {
-              const isActive = activeFilter === btn.key
-              const btnTheme = btn.isMood ? moodThemes[btn.key as Mood] : activeTheme
-              return (
-                <motion.button
-                  key={btn.key}
-                  className="flex items-center justify-center gap-[4px] h-[43px] w-[104px] rounded-[71px] text-[14px] font-medium"
-                  style={{ fontFamily: "'Noto Sans SC', sans-serif" }}
-                  onClick={() => handleFilterClick(btn.key, btn.isMood)}
-                  animate={{
-                    backgroundColor: isActive ? btnTheme.primary : btnTheme.cardBg,
-                    color: isActive ? '#fff' : btnTheme.textPrimary,
-                    borderColor: isActive ? btnTheme.textPrimary : 'transparent',
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {btn.iconSrc && <img src={btn.iconSrc} alt="" className="w-[18px] h-[18px]" />}
-                  {btn.label}
-                </motion.button>
-              )
-            })}
+            {filterButtons.slice(0, 3).map((btn) => renderFilterButton(btn))}
           </div>
           <div className="flex gap-[15px]">
-            {filterButtons.slice(3).map((btn) => {
-              const isActive = activeFilter === btn.key
-              const btnTheme = btn.isMood ? moodThemes[btn.key as Mood] : activeTheme
-              return (
-                <motion.button
-                  key={btn.key}
-                  className="flex items-center justify-center gap-[4px] h-[43px] w-[104px] rounded-[71px] text-[14px] font-medium"
-                  style={{ fontFamily: "'Noto Sans SC', sans-serif" }}
-                  onClick={() => handleFilterClick(btn.key, btn.isMood)}
-                  animate={{
-                    backgroundColor: isActive ? btnTheme.primary : btnTheme.cardBg,
-                    color: isActive ? '#fff' : btnTheme.textPrimary,
-                    borderColor: isActive ? btnTheme.textPrimary : 'transparent',
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {btn.iconSrc && <img src={btn.iconSrc} alt="" className="w-[18px] h-[18px]" />}
-                  {btn.label}
-                </motion.button>
-              )
-            })}
+            {filterButtons.slice(3).map((btn) => renderFilterButton(btn))}
           </div>
         </div>
 
