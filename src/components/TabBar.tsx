@@ -19,58 +19,56 @@ export default function TabBar() {
   if (pathname.startsWith('/player')) return null
 
   return (
-    <motion.nav
-      className="fixed bottom-0 left-0 right-0 z-50 backdrop-blur-xl"
-      style={{ maxWidth: 430, margin: '0 auto' }}
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-50 mx-auto h-[87px] overflow-hidden"
+      style={{ maxWidth: 402 }}
     >
-      <div
-        className="relative h-[87px] w-full bg-contain bg-no-repeat bg-bottom"
-        style={{ backgroundImage: `url(/ui/tab-bg.svg)` }}
-      >
-        <motion.div
-          className="absolute top-0 left-0 h-[3px]"
-          style={{ width: 243 }}
-          animate={{ backgroundColor: theme.primary }}
-          transition={{ duration: 0.8 }}
-        />
-        <div className="flex items-start justify-around pt-[19px] px-[6%]">
-          {tabs.map((tab) => {
-            const isActive = pathname === tab.path
-            return (
-              <button
-                key={tab.path}
-                onClick={() => router.push(tab.path)}
-                className="flex flex-col items-center gap-1 w-[52px] h-[49px]"
+      {/* Glass background */}
+      <div className="absolute inset-0" style={{
+        backgroundColor: 'rgba(240,245,232,0.85)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+      }} />
+
+      {/* Active indicator line */}
+      <motion.div
+        className="absolute top-0 left-0 h-[3px]"
+        style={{ width: 243 }}
+        animate={{ backgroundColor: theme.primary }}
+        transition={{ duration: 0.8 }}
+      />
+
+      {/* Tab items */}
+      <div className="relative flex items-start justify-around pt-[19px] px-[6.13%]">
+        {tabs.map((tab) => {
+          const isActive = pathname === tab.path
+          return (
+            <button
+              key={tab.path}
+              onClick={() => router.push(tab.path)}
+              className="flex flex-col items-center w-[51.5px] h-[49px]"
+            >
+              <img
+                src={tab.icon}
+                alt={tab.label}
+                className="w-[24px] h-[24px]"
+                style={{ opacity: isActive ? 1 : 0.4 }}
+              />
+              <span
+                className="mt-[5px] text-[10px] tracking-[-0.24px] leading-normal"
+                style={{
+                  color: theme.textPrimary,
+                  fontFamily: "'PingFang HK', 'PingFang SC', sans-serif",
+                  fontWeight: 500,
+                  opacity: isActive ? 1 : 0.4,
+                }}
               >
-                <img
-                  src={tab.icon}
-                  alt={tab.label}
-                  className="w-6 h-6"
-                  style={{ opacity: isActive ? 1 : 0.5 }}
-                />
-                <span
-                  className="text-[10px] tracking-[-0.24px]"
-                  style={{
-                    color: theme.textPrimary,
-                    fontFamily: "'PingFang SC', 'PingFang HK', sans-serif",
-                    fontWeight: 500,
-                    opacity: isActive ? 1 : 0.5,
-                  }}
-                >
-                  {tab.label}
-                </span>
-                {isActive && (
-                  <motion.div
-                    layoutId="tab-dot"
-                    className="w-1 h-1 rounded-full"
-                    style={{ backgroundColor: theme.primary }}
-                  />
-                )}
-              </button>
-            )
-          })}
-        </div>
+                {tab.label}
+              </span>
+            </button>
+          )
+        })}
       </div>
-    </motion.nav>
+    </nav>
   )
 }

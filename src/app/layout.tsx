@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" className="h-full antialiased">
-      <body className="min-h-full flex flex-col mx-auto" style={{ maxWidth: 430 }}>
+      <body className="min-h-full flex flex-col mx-auto relative" style={{ maxWidth: 402 }}>
         {children}
       </body>
     </html>

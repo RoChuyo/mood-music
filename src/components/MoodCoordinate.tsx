@@ -73,94 +73,95 @@ export default function MoodCoordinate() {
   }, [trails.length])
 
   return (
-    <div className="relative">
-      <div
-        ref={containerRef}
-        className="relative h-[280px] w-full rounded-b-[20px] overflow-hidden touch-none"
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
+    <div
+      ref={containerRef}
+      className="w-full h-full touch-none relative"
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      style={{ cursor: 'crosshair' }}
+    >
+      {/* Quadrant gradient background */}
+      <div className="absolute inset-0" style={{
+        background: `
+          linear-gradient(135deg,
+            ${moodThemes.angry.cardBg}60 0%,
+            ${moodThemes.happy.cardBg}60 50%,
+            ${moodThemes.sad.cardBg}60 50%,
+            ${moodThemes.relaxed.cardBg}60 100%)`
+      }} />
+
+      {/* Radial glow following dot */}
+      <div className="absolute inset-0" style={{
+        background: `radial-gradient(circle at ${dotPos.x * 100}% ${dotPos.y * 100}%, ${theme.primary}18 0%, transparent 45%)`
+      }} />
+
+      {/* Cross axis lines */}
+      <div className="absolute left-1/2 top-[3px] bottom-[3px] w-px" style={{ backgroundColor: `${theme.textPrimary}12` }} />
+      <div className="absolute top-1/2 left-[19px] right-[19px] h-px" style={{ backgroundColor: `${theme.textPrimary}12` }} />
+
+      {/* Mood labels - exact Figma positions relative to 374px wide, 358px tall container */}
+      {/* 愤怒: left ~50px from container, vertically centered */}
+      <div className="absolute left-[19px] top-1/2 -translate-y-1/2 flex items-center gap-[4px]">
+        <img src="/mood/angry.svg" alt="" className="w-[20px] h-[20px]" />
+        <span className="text-[14px] font-bold leading-[1.5]" style={{ color: theme.textPrimary, fontFamily: "'Oxygen', sans-serif" }}>愤怒</span>
+      </div>
+      {/* 开心: top-right corner */}
+      <div className="absolute right-[19px] top-[9px] flex items-center gap-[2px]">
+        <span className="text-[14px] font-bold leading-[1.5]" style={{ color: theme.textPrimary, fontFamily: "'Oxygen', sans-serif" }}>开心</span>
+        <img src="/mood/happy.svg" alt="" className="w-[20px] h-[20px]" />
+      </div>
+      {/* 悲伤: bottom-left */}
+      <div className="absolute left-[19px] bottom-[9px] flex items-center gap-[4px]">
+        <img src="/mood/sad.svg" alt="" className="w-[20px] h-[20px]" />
+        <span className="text-[14px] font-bold leading-[1.5]" style={{ color: theme.textPrimary, fontFamily: "'Oxygen', sans-serif" }}>悲伤</span>
+      </div>
+      {/* 安逸: bottom-right */}
+      <div className="absolute right-[19px] bottom-[9px] flex items-center gap-[2px]">
+        <span className="text-[14px] font-bold leading-[1.5]" style={{ color: theme.textPrimary, fontFamily: "'Oxygen', sans-serif" }}>安逸</span>
+        <img src="/mood/relaxed.svg" alt="" className="w-[20px] h-[20px]" />
+      </div>
+
+      {/* Trail dots with graduated sizes (8→18px) and blur */}
+      {trails.map((trail) => (
+        <motion.div
+          key={trail.id}
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            left: `${trail.x * 100}%`,
+            top: `${trail.y * 100}%`,
+            width: trail.size,
+            height: trail.size,
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: theme.primary,
+            opacity: trail.opacity * 0.4,
+            filter: `blur(${(1 - trail.opacity) * 4}px)`,
+          }}
+        />
+      ))}
+
+      {/* Cursor dot - 32x32 with glow */}
+      <motion.div
+        className="absolute pointer-events-none z-10"
         style={{
-          cursor: 'crosshair',
-          background: `linear-gradient(135deg,
-            ${moodThemes.angry.cardBg}80 0%,
-            ${moodThemes.happy.cardBg}80 50%,
-            ${moodThemes.sad.cardBg}80 50%,
-            ${moodThemes.relaxed.cardBg}80 100%)`,
+          left: `${dotPos.x * 100}%`,
+          top: `${dotPos.y * 100}%`,
+          width: 32,
+          height: 32,
+          transform: 'translate(-50%, -50%)',
         }}
       >
-        <div className="absolute inset-0" style={{
-          background: `radial-gradient(circle at ${dotPos.x * 100}% ${dotPos.y * 100}%, ${theme.primary}20 0%, transparent 50%)`
-        }} />
+        <img src="/ui/cursor.svg" alt="" className="w-full h-full drop-shadow-lg" />
+      </motion.div>
 
-        <div className="absolute left-1/2 top-0 bottom-0 w-px" style={{ backgroundColor: `${theme.textPrimary}15` }} />
-        <div className="absolute top-1/2 left-0 right-0 h-px" style={{ backgroundColor: `${theme.textPrimary}15` }} />
-
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
-          <img src="/mood/angry.svg" alt="愤怒" className="w-[20px] h-[20px]" />
-          <span className="text-[14px] font-bold" style={{ color: theme.textPrimary, fontFamily: "'Oxygen', sans-serif" }}>愤怒</span>
-        </div>
-        <div className="absolute right-3 top-3 flex items-center gap-1">
-          <span className="text-[14px] font-bold" style={{ color: theme.textPrimary, fontFamily: "'Oxygen', sans-serif" }}>开心</span>
-          <img src="/mood/happy.svg" alt="开心" className="w-[20px] h-[20px]" />
-        </div>
-        <div className="absolute left-3 bottom-3 flex items-center gap-1">
-          <img src="/mood/sad.svg" alt="悲伤" className="w-[20px] h-[20px]" />
-          <span className="text-[14px] font-bold" style={{ color: theme.textPrimary, fontFamily: "'Oxygen', sans-serif" }}>悲伤</span>
-        </div>
-        <div className="absolute right-3 bottom-3 flex items-center gap-1">
-          <span className="text-[14px] font-bold" style={{ color: theme.textPrimary, fontFamily: "'Oxygen', sans-serif" }}>安逸</span>
-          <img src="/mood/relaxed.svg" alt="安逸" className="w-[20px] h-[20px]" />
-        </div>
-
-        {trails.map((trail) => (
-          <motion.div
-            key={trail.id}
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              left: `${trail.x * 100}%`,
-              top: `${trail.y * 100}%`,
-              width: trail.size,
-              height: trail.size,
-              transform: 'translate(-50%, -50%)',
-              backgroundColor: theme.primary,
-              opacity: trail.opacity * 0.35,
-              filter: `blur(${(1 - trail.opacity) * 3}px)`,
-            }}
-          />
-        ))}
-
-        <motion.div
-          className="absolute pointer-events-none z-10"
-          style={{
-            left: `${dotPos.x * 100}%`,
-            top: `${dotPos.y * 100}%`,
-            width: 32,
-            height: 32,
-            transform: 'translate(-50%, -50%)',
-          }}
-        >
-          <img src="/ui/cursor.svg" alt="" className="w-full h-full" />
+      {/* Mood change animation */}
+      {moodAnimation && (
+        <motion.div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <motion.img src={moodThemes[moodAnimation].iconSrc} alt="" className="w-[64px] h-[64px]"
+            initial={{ scale: 0, rotate: -180 }} animate={{ scale: [0, 1.5, 1], rotate: 0 }} transition={{ duration: 0.6 }} />
         </motion.div>
-
-        {moodAnimation && (
-          <motion.div
-            className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.img
-              src={moodThemes[moodAnimation].iconSrc}
-              alt=""
-              className="w-16 h-16"
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: [0, 1.5, 1], rotate: 0 }}
-              transition={{ duration: 0.6 }}
-            />
-          </motion.div>
-        )}
-      </div>
+      )}
     </div>
   )
 }
