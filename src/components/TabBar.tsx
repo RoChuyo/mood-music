@@ -20,8 +20,7 @@ export default function TabBar() {
 
   return (
     <nav className="sticky bottom-0 left-0 right-0 z-50 h-[87px] flex-shrink-0">
-      <div className="absolute inset-0" style={{
-        backgroundColor: 'rgba(240,245,232,0.88)',
+      <motion.div className="absolute inset-0" animate={{ backgroundColor: `${theme.bg}E0` }} transition={{ duration: 0.8 }} style={{
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
       }} />

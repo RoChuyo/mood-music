@@ -18,7 +18,7 @@ export default function MiniPlayer() {
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
       }}
-      animate={{ backgroundColor: 'rgba(209,223,189,0.88)' }}
+      animate={{ backgroundColor: `${theme.cardBg}E0` }}
       transition={{ duration: 0.8 }}
       onClick={() => router.push('/player')}
     >

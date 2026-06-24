@@ -98,17 +98,26 @@ export default function RecordsPage() {
         <div className="flex-1 px-[14px] pt-[52px]">
           <div className="flex items-center justify-between mb-[16px]">
             <h1 className="text-[24px] font-semibold" style={{ fontFamily: "'PingFang HK', sans-serif" }}>记录</h1>
-            <button className="text-[13px]" style={{ color: theme.textSecondary }} onClick={() => setViewMode('cards')}>返回</button>
           </div>
-          <div className="space-y-[4px]">
-            {moodRecords.map((record) => (
-              <motion.div key={record.id} className="flex items-center gap-[8px] py-[10px] px-[12px] rounded-[5.6px]"
-                style={{ backgroundColor: moodBgColors[record.mood] }}
+          {/* Glass container for the list */}
+          <div className="rounded-[12px] overflow-hidden" style={{
+            backdropFilter: 'blur(14px)',
+            WebkitBackdropFilter: 'blur(14px)',
+            backgroundColor: `${theme.cardBg}60`,
+            boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+          }}>
+            {moodRecords.map((record, i) => (
+              <motion.div key={record.id}
+                className="flex items-center gap-[8px] py-[10px] px-[12px]"
+                style={{
+                  backgroundColor: moodBgColors[record.mood],
+                  borderBottom: i < moodRecords.length - 1 ? '1px solid rgba(255,255,255,0.3)' : 'none',
+                }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => { setSelectedRecord(record.id); setViewMode('detail') }}>
                 <img src={moodThemes[record.mood].iconSrc} alt="" className="w-[16px] h-[16px]" />
-                <span className="text-[12px] flex-1 truncate font-semibold" style={{ fontFamily: "'PingFang HK', sans-serif" }}>{record.songTitle}-{moodThemes[record.mood].label}</span>
-                <span className="text-[12px]" style={{ color: theme.textSecondary, fontFamily: "'Noto Sans SC', sans-serif" }}>{record.date}</span>
+                <span className="text-[12px] flex-1 truncate font-semibold" style={{ fontFamily: "'PingFang HK', sans-serif", color: moodThemes[record.mood].textPrimary }}>{record.songTitle}-{moodThemes[record.mood].label}</span>
+                <span className="text-[12px]" style={{ color: moodThemes[record.mood].textSecondary, fontFamily: "'Noto Sans SC', sans-serif" }}>{record.date}</span>
               </motion.div>
             ))}
           </div>
